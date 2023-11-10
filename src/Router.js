@@ -5,12 +5,13 @@ import { PageNotFound } from "./pages/PageNotFound";
 import { Search } from "./pages/search/Search";
 import { Detail } from "./pages/detail/Detail";
 import { Header } from "./components/Header";
+import { Home } from "./pages/home/Home";
 const Router = () => {
   return (
     <HashRouter>
       <Header />
       <Routes>
-        <Route path={routes.home} element={""} />
+        <Route path={routes.home} element={<Home />} />
         <Route path={routes.detail} element={<Detail />} />
         <Route path={routes.search} element={<Search />} />
         <Route path="/*" element={<PageNotFound />} />

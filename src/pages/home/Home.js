@@ -1,4 +1,5 @@
-import { Mainbanner } from "./Mainbanner";
+import styled from "styled-components";
+import { nowPlaying } from "../../api";
 
 const Mainbanner = styled.div`
   height: 80vh;
@@ -26,13 +27,17 @@ const Mainbanner = styled.div`
 const BlackBg = styled.div`
   width: 100%;
   height: 100%;
-  background-color: teal;
   position: absolute;
   top: 0;
   left: 0;
+  background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
 `;
 
 export const Home = () => {
+  // nowPlaying();
+
   return (
     <div>
       <Mainbanner>

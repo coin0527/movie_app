@@ -12,8 +12,8 @@
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
     "router-dom": "^2.2.11",
-    "style.reset": "^1.0.2",
     "styled-components": "^6.1.1",
+    "styled-reset": "^4.5.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

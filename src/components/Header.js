@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { routes } from "../routes";
-//  스타일 컴포넌트 재설치해야할듯
+import styled from "styled-components";
 
 const SHeader = styled.header`
   width: 100%;
@@ -8,9 +8,8 @@ const SHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   a {
-    color: black;
+    color: white;
   }
   position: fixed;
   top: 0;
@@ -29,7 +28,7 @@ const Menu = styled.ul`
   font-weight: 600;
 
   li {
-    margin-left: 60px;
+    margin-left: 35px;
   }
 `;
 
@@ -44,8 +43,9 @@ export const Header = () => {
         <li>
           <Link to={routes.home}> HOME </Link>
         </li>
+        <li>I</li>
         <li>
-          <Link to={routes.home}> Search </Link>
+          <Link to={routes.search}> Search </Link>
         </li>
       </Menu>
     </SHeader>
