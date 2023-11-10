@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { nowPlaying } from "../../api";
+import { useEffect } from "react";
 
 const Mainbanner = styled.div`
   height: 80vh;
@@ -36,7 +37,18 @@ const BlackBg = styled.div`
 `;
 
 export const Home = () => {
-  // nowPlaying();
+  // api 요청, 비동기통신, 예외처리
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await nowPlaying();
+        console.log(data);
+      } catch (error) {
+        console.log("에러 : " + error);
+      }
+    })();
+  }, []);
 
   return (
     <div>
