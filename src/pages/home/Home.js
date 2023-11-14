@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { nowPlaying } from "../../api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Mainbanner = styled.div`
   height: 80vh;
@@ -37,26 +37,42 @@ const BlackBg = styled.div`
 `;
 
 export const Home = () => {
-  // api 요청, 비동기통신, 예외처리
+  // 지역변수 -> 전역변수 useState
+  const [nowPlayingData, setNowplayingData] = useState();
+  const [loading, setLoading] = useState(true);
 
+  // api 요청, 비동기통신, 예외처리
   useEffect(() => {
     (async () => {
       try {
-        const data = await nowPlaying();
-        console.log(data);
+        //비구조화 할당 사용 = results
+        const { results } = await nowPlaying();
+        setNowplayingData(results); // 실제 저장값을 할당
+        setLoading(false);
       } catch (error) {
         console.log("에러 : " + error);
       }
     })();
   }, []);
 
+  console.log(loading);
+  console.log(nowPlayingData);
+
   return (
-    <div>
-      <Mainbanner>
-        <BlackBg />
-        <h3> 프레디 </h3>
-        <p>나중에 글이 들어갈 내용</p>
-      </Mainbanner>
-    </div>
+    <>
+      {loading ? (
+        "loading"
+      ) : (
+        <div>
+          {nowPlayingData && (
+            <Mainbanner>
+              <BlackBg />
+              <h3> {nowPlayingData[0].title} </h3>
+              <p> {nowPlayingData[0].overview} </p>
+            </Mainbanner>
+          )}
+        </div>
+      )}
+    </>
   );
 };
