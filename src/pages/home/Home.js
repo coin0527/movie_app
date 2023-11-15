@@ -1,6 +1,14 @@
 import { nowPlaying } from "../../api";
 import { useEffect, useState } from "react";
 import { Banner } from "./Banner";
+import "swiper/css";
+import { ShowMovie } from "./ShowMovie";
+import { PacmanLoader } from "react-spinners";
+import styled from "styled-components";
+
+const Loading = styled.div`
+  margin: 0 auto;
+`;
 
 export const Home = () => {
   // 지역변수 -> 전역변수 useState
@@ -29,10 +37,19 @@ export const Home = () => {
 
   return (
     <>
-      {isloading ? (
-        "loading"
+      {!isloading ? (
+        <Loading>
+          <PacmanLoader color="#84B528" />
+        </Loading>
       ) : (
-        <div>{nowPlayingData && <Banner data={nowPlayingData[0]} />}</div>
+        <div>
+          {nowPlayingData && (
+            <>
+              <Banner data={nowPlayingData[0]} />
+              <ShowMovie movieData={nowPlayingData} />
+            </>
+          )}
+        </div>
       )}
     </>
   );
