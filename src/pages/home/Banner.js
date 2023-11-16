@@ -1,14 +1,16 @@
 import { IMG_URL } from "../../constance";
 import styled from "styled-components";
+import { slice } from "slice";
 
 const Mainbanner = styled.div`
   height: 80vh;
-  padding: 400px 5%;
+  background-color: lightgray;
   position: relative;
+  padding: 400px 5%;
   background: url(${IMG_URL}/original/${(props) => props.$bgUrl}) no-repeat
     center / cover;
-  h3,
-  p {
+  p,
+  h3 {
     position: relative;
   }
 
@@ -22,6 +24,8 @@ const Mainbanner = styled.div`
     line-height: 100px;
   }
   p {
+    width: 100%;
+    max-width: 650px;
     font-size: 18px;
     font-weight: 400;
     line-height: 26px;
@@ -40,12 +44,15 @@ const Mainbanner = styled.div`
 const BlackBg = styled.div`
   width: 100%;
   height: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.8) 55%,
+    rgba(0, 0, 0, 0) 95%
+  );
   position: absolute;
   top: 0;
   left: 0;
-  /* background: #0f2027;
-  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
-  background: linear-gradient(to right, #2c5364, #203a43, #0f2027); */
 `;
 
 export const Banner = ({ data }) => {

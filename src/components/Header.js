@@ -14,7 +14,7 @@ const SHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 11;
+  z-index: 10;
 `;
 const Logo = styled.div`
   font-size: 24px;

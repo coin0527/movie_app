@@ -4,8 +4,7 @@ import { IMG_URL } from "../../constance";
 import { Link } from "react-router-dom";
 import "swiper/css";
 
-const Layout = styled.section`
-  padding: 150px 5%;
+const Container = styled.section`
   a {
     color: white;
   }
@@ -20,9 +19,9 @@ const Title = styled.h3`
   }
 `;
 const CoverBg = styled.div`
-  height: 250px;
-  background-image: url(${IMG_URL}/w500/${(props) => props.$bgUrl}) no-repeat
-    center / cover;
+  height: 300px;
+  background: url(${IMG_URL}/w500/${(props) => props.$bgUrl}) no-repeat center /
+    cover;
   border-radius: 15px;
   margin-bottom: 20px;
   @media screen and (max-width: 450px) {
@@ -57,10 +56,10 @@ const params = {
     },
   },
 };
-export const ShowMovie = ({ movieData }) => {
+export const ShowMovie = ({ movieData, titlename }) => {
   return (
-    <Layout>
-      <Title> 현재 상영 영화 </Title>
+    <Container>
+      <Title> {titlename} </Title>
       {/* ... < 스프레드 포인트는 괄호를 하나 벗겨준다. */}
       <Swiper {...params}>
         {movieData.map((data) => (
@@ -73,6 +72,6 @@ export const ShowMovie = ({ movieData }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </Layout>
+    </Container>
   );
 };
