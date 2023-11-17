@@ -1,11 +1,4 @@
-import {
-  nowPlaying,
-  popular,
-  topRate,
-  topRated,
-  topRating,
-  upcomming,
-} from "../../api";
+import { nowPlaying, popular, topRate, upcomming } from "../../api";
 import { useEffect, useState } from "react";
 import { Banner } from "./Banner";
 import "swiper/css";

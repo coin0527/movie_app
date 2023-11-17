@@ -1,6 +1,5 @@
 import { IMG_URL } from "../../constance";
 import styled from "styled-components";
-import { slice } from "slice";
 
 const Mainbanner = styled.div`
   height: 80vh;
