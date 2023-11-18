@@ -1,78 +1,102 @@
+import styled from "styled-components";
+import { Loading } from "../../components/Loading";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { movieDetail } from "../../api";
-import styled from "styled-components";
+import { MovieDetail } from "../../api";
 import { IMG_URL } from "../../constance";
 
-const Wrap = styled.div`
-  padding: 150px 5%;
-`;
 const Container = styled.div`
-  border: 1px solid white;
+  padding: 100px 150px 150px;
   display: flex;
-  padding: 150px 5%;
+  justify-content: space-between;
 `;
-const Bgimg = styled.div`
-  border: 1px solid red;
-  width: 350px;
-  height: 450px;
+const Bg = styled.div`
+  border: 1px solid white;
+  width: 100%;
+  max-width: 40%;
+  height: 600px;
+  background: url(${IMG_URL}/w1280/${(props) => props.$BgUrl}) no-repeat center /
+    cover;
 `;
-const TitleWrap = styled.div`
-  align-items: center;
-  margin: 0 auto;
+const Con = styled.div`
+  padding: 0 100px;
 `;
 const Title = styled.h3`
-  font-size: 30px;
-  font-weight: 600;
-  margin-bottom: 50px;
+  font-weight: 700;
+  font-size: 50px;
+  margin-bottom: 30px;
 `;
-
-const Rated = styled.div``;
-const Genres = styled.ul``;
-const Realease = styled.div``;
-const RunTime = styled.div``;
-
-const Line = styled.div`
-  width: 330px;
-  border: 1px solid white;
-  opacity: 0.3;
-  margin-top: 20px;
+const Rated = styled.div`
+  font-weight: 500;
+  font-size: 24px;
+`;
+const Geners = styled.ul`
+  margin: 20px 0;
+  li {
+    list-style: disc;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+`;
+const Release = styled.div`
   margin-bottom: 20px;
 `;
-const Quest = styled.p`
-  opacity: 0.7;
+const Runtime = styled.div`
+  letter-spacing: -1px;
 `;
+const Line = styled.div`
+  border: 1px solid white;
+  opacity: 0.4;
+  margin: 30px 0 30px 0;
+`;
+const Desc = styled.p`
+  line-height: 30px;
+  opacity: 0.6;
+  max-width: 70%;
+  width: 100%;
+  padding-top: 30px;
+  font-weight: 300;
+`;
+// 반응형 작업 덜했음.
 
 export const Detail = () => {
   const { id } = useParams();
   const [detailData, setDetailData] = useState();
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     (async () => {
       try {
-        const data = await movieDetail(id);
+        const data = await MovieDetail(id);
         setDetailData(data);
+        setLoading(false);
       } catch (error) {
-        console.log("error: " + error);
+        console.log("Error: " + error);
       }
     })();
   }, []);
-
-  console.log(detailData);
   return (
-    <Wrap>
-      <Container>
-        <Bgimg />
-        <TitleWrap>
-          <Title> {detailData.title} </Title>
-          <Rated> </Rated>
-          <Genres></Genres>
-          <Realease> </Realease>
-          <RunTime> </RunTime>
-          <Line />
-          <Quest> </Quest>
-        </TitleWrap>
-      </Container>
-    </Wrap>
+    <div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Bg $BgUrl={detailData.poster_path} />
+          <Con>
+            <Title> {detailData.title} </Title>
+            <Rated> 평점 {Math.round(detailData.vote_average)} </Rated>
+            <Geners>
+              {detailData.genres.map((genre) => (
+                <li key={genre.id}>{genre.name}</li>
+              ))}
+            </Geners>
+            <Release> {detailData.release_date} </Release>
+            <Runtime> {detailData.runtime}min </Runtime>
+            <Line></Line>
+            <Desc> {detailData.overview} </Desc>
+          </Con>
+        </Container>
+      )}
+    </div>
   );
 };

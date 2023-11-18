@@ -5,7 +5,7 @@
 - [x] react-router-dom (npm i react-router-dom)
 - [x] 스와이퍼 (npm install swiper)
 - [x] loading spinner(npm i react-spinners)
-- [] 폼관련
+- [x] 폼관련 (npm i react-hook-form)
 - [x] 타이틀 관련 (npm i react-helmet)
 - [] 폰트어썸
 

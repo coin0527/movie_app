@@ -3,17 +3,9 @@ import { useEffect, useState } from "react";
 import { Banner } from "./Banner";
 import "swiper/css";
 import { ShowMovie } from "./ShowMovie";
-import { PacmanLoader } from "react-spinners";
-import styled from "styled-components";
 import { Layout } from "../../components/Layout";
 import { PageTitle } from "../../components/PageTitle";
-
-const Loading = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
-`;
+import { Loading } from "../../components/Loading";
 
 export const Home = () => {
   // 지역변수 -> 전역변수 useState
@@ -56,9 +48,7 @@ export const Home = () => {
   return (
     <>
       {isloading ? (
-        <Loading>
-          <PacmanLoader color="#84B528" />
-        </Loading>
+        <Loading />
       ) : (
         <div>
           {nowPlayingData && (
