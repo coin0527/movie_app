@@ -9,6 +9,10 @@ const Container = styled.div`
   padding: 100px 150px 150px;
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    padding: 100px 5%;
+  }
 `;
 const Bg = styled.div`
   border: 1px solid white;
@@ -17,14 +21,24 @@ const Bg = styled.div`
   height: 600px;
   background: url(${IMG_URL}/w1280/${(props) => props.$BgUrl}) no-repeat center /
     cover;
+  @media screen and (max-width: 450px) {
+    width: 100%;
+    height: 500px;
+  }
 `;
 const Con = styled.div`
-  padding: 0 100px;
+  width: 55%;
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
 `;
 const Title = styled.h3`
   font-weight: 700;
   font-size: 50px;
   margin-bottom: 30px;
+  @media screen and (max-width: 450px) {
+    font-size: 30px;
+  }
 `;
 const Rated = styled.div`
   font-weight: 500;
@@ -56,6 +70,9 @@ const Desc = styled.p`
   width: 100%;
   padding-top: 30px;
   font-weight: 300;
+  @media screen and (max-width: 450px) {
+    max-width: 100%;
+  }
 `;
 // 반응형 작업 덜했음.
 
