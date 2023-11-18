@@ -70,7 +70,7 @@ export const Search = () => {
       }
     })();
   }, []);
-  //console.log(searchData);
+  console.log(searchData);
   return (
     <Wrap>
       <SearchWrap>

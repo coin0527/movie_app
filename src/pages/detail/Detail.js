@@ -74,7 +74,6 @@ const Desc = styled.p`
     max-width: 100%;
   }
 `;
-// 반응형 작업 덜했음.
 
 export const Detail = () => {
   const { id } = useParams();
