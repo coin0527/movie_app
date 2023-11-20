@@ -38,7 +38,7 @@ export const MovieDetail = (id) => {
 };
 // ----------------------Search------------------------------
 
-export const MovieSearch = () => {
-  const SearchUrl = baseUrl + `search/movie` + "?language=ko-KR";
+export const MovieSearch = (movie) => {
+  const SearchUrl = baseUrl + `search/movie?query=${movie}` + "&language=ko-KR";
   return fetch(SearchUrl, options).then((res) => res.json());
 };

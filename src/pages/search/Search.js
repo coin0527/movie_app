@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { MovieSearch } from "../../api";
+import { IMG_URL } from "../../constance";
 
 const Wrap = styled.div``;
 
@@ -44,39 +45,58 @@ const Section = styled.section`
   border: 1px solid white;
   width: 100%;
   height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  /* grid가 적용될 부모에게 사용, 플렉스와 동일 */
+  grid-template-columns: repeat(5, 1fr);
+  /* 그리드 레이아웃을 규칙에 맞게 반복시킴 */
+  /* 1fr: 컨텐츠끼리 1배율씩 똑같은 값으로 크기를 나눠가짐 */
+  /* repeat(가로개수, 크기값) */
+  column-gap: 30px;
+  /* 가로 컨텐츠 간격 */
+  row-gap: 50px;
+  /* 세로 컨텐츠 간격 */
 `;
 
+const Con = styled.div``;
+
+const Bg = styled.div`
+  width: 300px;
+  background: url(${IMG_URL}/w500/${(props) => props.$bgUrl}) no-repeat center /
+    cover;
+`;
+
+const MovieTitle = styled.div``;
+
 export const Search = () => {
-  // const { id } = useParams();
-  const [searchData, setSearchData] = useState();
+  const [term, setTerm] = useState();
 
   const {
     register,
-    formState: { isValid },
+    handleSubmit,
+    formState: { errors, isValid },
   } = useForm({
-    mode: "all",
+    mode: "onSubmit",
   });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await MovieSearch();
-        setSearchData(data);
-      } catch (error) {
-        console.log("Error: " + error);
-      }
-    })();
-  }, []);
-  console.log(searchData);
+  const searchHandler = async (data) => {
+    //이벤트 작성시 실행될 내용
+    const { search: Keyword } = data;
+    try {
+      const { results } = await MovieSearch(Keyword);
+      setTerm(results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(term);
+
   return (
     <Wrap>
       <SearchWrap>
-        <Form>
+        <Form onSubmit={handleSubmit(searchHandler)}>
           <Input
-            {...register("searchname", {
+            {...register("search", {
               required: " 검색어를 입력해 주세요. ",
             })}
             type="text"
@@ -86,7 +106,15 @@ export const Search = () => {
         <Button $isActive={isValid}> Search </Button>
       </SearchWrap>
 
-      <Section> Section </Section>
+      <Section>
+        {term &&
+          term.map((data) => (
+            <Con key={data.id}>
+              <Bg $bgUrl={data.backdrop_path} />
+              <MovieTitle> {data.title} </MovieTitle>
+            </Con>
+          ))}
+      </Section>
     </Wrap>
   );
 };
