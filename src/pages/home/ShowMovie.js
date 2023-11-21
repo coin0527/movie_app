@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 
 const Container = styled.section`
+  margin-bottom: 100px;
   a {
     color: white;
   }
@@ -31,6 +32,7 @@ const CoverBg = styled.div`
 `;
 const MovieTitle = styled.h4`
   font-size: 18px;
+  text-align: center;
   @media screen and (max-width: 450px) {
     font-size: 16px;
     line-height: 22px;

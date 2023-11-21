@@ -4,19 +4,25 @@ import styled from "styled-components";
 import { MovieSearch } from "../../api";
 import { IMG_URL } from "../../constance";
 
-const Wrap = styled.div``;
-
-const SearchWrap = styled.div`
+const Title = styled.h3`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px 0 100px 0;
+  margin: 0 0 15px 0;
+  font-size: 30px;
 `;
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Input = styled.input`
   all: unset;
   box-sizing: border-box;
-  width: 1000px;
-  margin-right: 30px;
+  width: 50%;
+  margin: 30px 0 30px 0;
   border: 1px solid white;
   border-radius: 15px;
   height: 70px;
@@ -25,64 +31,53 @@ const Input = styled.input`
   letter-spacing: -1px;
   text-align: center;
 `;
-const Button = styled.button`
-  all: unset;
-  width: 100%;
-  max-width: 100px;
-  height: 70px;
-  border: 1px solid white;
-  background-color: rgba(255, 255, 255, 0.3);
-  color: white;
-  opacity: 0.7;
-  font-weight: 800;
-  font-size: 24px;
-  border-radius: 15px;
-  text-align: center;
-  cursor: pointer;
-`;
-const Form = styled.form``;
-const Section = styled.section`
-  border: 1px solid white;
-  width: 100%;
-  height: 500px;
+
+const ConWrap = styled.div`
   display: grid;
-  /* grid가 적용될 부모에게 사용, 플렉스와 동일 */
+  /* =>gird가 적용될 부모에게 사용 플랙스와 동일 */
   grid-template-columns: repeat(5, 1fr);
-  /* 그리드 레이아웃을 규칙에 맞게 반복시킴 */
-  /* 1fr: 컨텐츠끼리 1배율씩 똑같은 값으로 크기를 나눠가짐 */
-  /* repeat(가로개수, 크기값) */
+  /* =>그리드 레이아웃을 규칙에 맞게 반복 시킴 */
+  /* =>repeat(가로 개수, 크기값) */
+  /* =>1fr 컨텐츠끼리 1배율씩 똑같은 값으로 크기를 나눠가짐 */
   column-gap: 30px;
-  /* 가로 컨텐츠 간격 */
+  /* =>가로 컨텐츠 간격 */
   row-gap: 50px;
-  /* 세로 컨텐츠 간격 */
+  /* =>세로 컨텐츠 간격 */
 `;
 
 const Con = styled.div``;
 
 const Bg = styled.div`
-  width: 300px;
+  height: 300px;
   background: url(${IMG_URL}/w500/${(props) => props.$bgUrl}) no-repeat center /
     cover;
 `;
 
-const MovieTitle = styled.div``;
+const MovieTitle = styled.div`
+  margin: 10px 0 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+`;
 
 export const Search = () => {
-  const [term, setTerm] = useState();
-
+  //api에 검색 요청에 맞게 url연결과 매개변수 작성할것
+  //form 사용시 useForm 사용할것
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    // formState: { errors, isValid },
   } = useForm({
     mode: "onSubmit",
   });
+  const [term, setTerm] = useState();
 
   const searchHandler = async (data) => {
-    //이벤트 작성시 실행될 내용
-    const { search: Keyword } = data;
+    const { search: keyword } = data;
     try {
-      const { results } = await MovieSearch(Keyword);
+      const { results } = await MovieSearch(keyword);
       setTerm(results);
     } catch (error) {
       console.log(error);
@@ -92,29 +87,29 @@ export const Search = () => {
   console.log(term);
 
   return (
-    <Wrap>
-      <SearchWrap>
-        <Form onSubmit={handleSubmit(searchHandler)}>
-          <Input
-            {...register("search", {
-              required: " 검색어를 입력해 주세요. ",
-            })}
-            type="text"
-            placeholder="검색어를 입력해주세요."
-          />
-        </Form>
-        <Button $isActive={isValid}> Search </Button>
-      </SearchWrap>
+    <div>
+      <Title style={{ marginTop: "200px" }}>찾으시는 영화가 있으신가요?</Title>
 
-      <Section>
-        {term &&
-          term.map((data) => (
+      <Form onSubmit={handleSubmit(searchHandler)}>
+        <Input
+          {...register("search", {
+            required: "검색 내용을 입력해주세요.",
+          })}
+          type="text"
+          placeholder="검색내용"
+        />
+      </Form>
+
+      {term && (
+        <ConWrap>
+          {term.map((data) => (
             <Con key={data.id}>
               <Bg $bgUrl={data.backdrop_path} />
-              <MovieTitle> {data.title} </MovieTitle>
+              <MovieTitle>{data.title}</MovieTitle>
             </Con>
           ))}
-      </Section>
-    </Wrap>
+        </ConWrap>
+      )}
+    </div>
   );
 };

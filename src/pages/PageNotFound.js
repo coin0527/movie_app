@@ -8,8 +8,10 @@ const Wrap = styled.div`
   align-items: center;
   font-size: 100px;
   font-weight: 700;
+  background: url(https://d3h2k7ug3o5pb3.cloudfront.net/image/2020-12-15/44f0ec70-3ed8-11eb-ba02-af36eefa2322.jpg)
+    no-repeat center / cover;
 `;
 
 export const PageNotFound = () => {
-  return <Wrap> PAGE NOT FOUND 404 </Wrap>;
+  return <Wrap> </Wrap>;
 };
