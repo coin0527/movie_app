@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { MovieSearch } from "../../api";
 import { IMG_URL } from "../../constance";
+import { Link } from "react-router-dom";
+import { Noimage } from "../Noimage";
 
 const Title = styled.h3`
   display: flex;
@@ -63,6 +65,8 @@ const MovieTitle = styled.div`
 `;
 
 export const Search = () => {
+  const [imageNotfound, setImageNotfound] = useState(true);
+
   //api에 검색 요청에 맞게 url연결과 매개변수 작성할것
   //form 사용시 useForm 사용할것
   const {
@@ -79,13 +83,11 @@ export const Search = () => {
     try {
       const { results } = await MovieSearch(keyword);
       setTerm(results);
+      setImageNotfound(false);
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(term);
-
   return (
     <div>
       <Title style={{ marginTop: "200px" }}>찾으시는 영화가 있으신가요?</Title>
@@ -104,8 +106,14 @@ export const Search = () => {
         <ConWrap>
           {term.map((data) => (
             <Con key={data.id}>
-              <Bg $bgUrl={data.backdrop_path} />
-              <MovieTitle>{data.title}</MovieTitle>
+              <Link to={`/detail/${data.id}`}>
+                {imageNotfound ? (
+                  <Noimage />
+                ) : (
+                  <Bg $bgUrl={data.backdrop_path} />
+                )}
+                <MovieTitle>{data.title}</MovieTitle>
+              </Link>
             </Con>
           ))}
         </ConWrap>
