@@ -55,15 +55,15 @@ export const Home = () => {
             <>
               <PageTitle titleName="HOME" />
               <Banner data={nowPlayingData[0]} />
-              {/* <Layout> */}
-              <ShowMovie
-                movieData={nowPlayingData}
-                titlename={"현재 상영 영화"}
-              />
-              <ShowMovie movieData={popData} titlename={"인기 영화"} />
-              <ShowMovie movieData={rankingData} titlename={"평점이 높은"} />
-              <ShowMovie movieData={upcommingData} titlename={"업 커밍"} />
-              {/* </Layout> */}
+              <Layout>
+                <ShowMovie
+                  movieData={nowPlayingData}
+                  titlename={"현재 상영 영화"}
+                />
+                <ShowMovie movieData={popData} titlename={"인기 영화"} />
+                <ShowMovie movieData={rankingData} titlename={"평점이 높은"} />
+                <ShowMovie movieData={upcommingData} titlename={"업 커밍"} />
+              </Layout>
             </>
           )}
         </div>
