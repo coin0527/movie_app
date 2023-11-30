@@ -56,7 +56,7 @@ export const Header = () => {
   });
 
   return (
-    <SHeader ref={headerRef}>
+    <SHeader>
       <Logo>
         <Link to={routes.home}> JMovie </Link>
       </Logo>
